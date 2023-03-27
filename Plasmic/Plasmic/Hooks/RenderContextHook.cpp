@@ -52,6 +52,7 @@ void OnSecondTimerCalc() {
 
 
 void TextCallBack(MinecraftUIRenderContext* ctx, BitmapFont* bm, float* a, std::string* text, float* a2, float a3, unsigned int a4, void* a5, void* a6) {
+	//for now we cache the font used in the drawText hook sense i havent found MinecraftGame yet... :)
 	RenderUtils::SetContext(ctx,bm);
 	_RenderDrawText(ctx, bm, a, text, a2, a3, a4, a5,a6);
 }
