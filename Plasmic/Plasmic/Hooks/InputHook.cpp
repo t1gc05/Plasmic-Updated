@@ -15,7 +15,7 @@ bool ctrlPushed = false;
 void onKeyHook(uint16_t key, bool isDown) {
 	bool Cancel = false;
 	bool fake = false;
-	oonKey(key, isDown);
+		oonKey(key, isDown);
 	if (key == VK_CONTROL)
 		ctrlPushed = isDown;
 	//if (key == VK_MENU)
@@ -163,8 +163,9 @@ bool onMouseHook(int8_t pressedButton, int8_t dirrection) {
 
 	GMH_WaitForRightclick = true;
 #ifndef _1_16_40
-	if (!Cancel)
+	//if (!Cancel)
 		return oonMouse(arg1, pressedButton, dirrection, mouseX, mouseY, idk1, idk2, ok);
+
 #else
 	return Cancel;
 #endif

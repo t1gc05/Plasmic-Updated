@@ -236,6 +236,14 @@ void ClickGui::onDisable() {
 	if (!IsEject)
 		Config::save(mltext("Default", "Defaut"));
 		*/
+	isInModuleSettings = false;
+	waitingKey = false;
+
+	selectedModule = nullptr;
+	selectedVisualModule = nullptr;
+	selectedColor = nullptr;
+
+	isFading = false;
 }
 #pragma endregion
 
