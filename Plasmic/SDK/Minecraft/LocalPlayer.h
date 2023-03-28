@@ -31,8 +31,11 @@ public:
 
 //TODO: improve that there is nothing bruh
 
-
-class LocalPlayer {
+class Player {
+public:
+	uintptr_t** VTable;
+};
+class LocalPlayer  : public Player {
 #ifndef _1_16_40
 private:
 	char pad_0008[8]; //0x0008

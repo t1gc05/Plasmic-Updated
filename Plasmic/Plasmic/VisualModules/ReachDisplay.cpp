@@ -4,13 +4,13 @@ void ReachDisplay::CalcHitValue() {
 	assertLocalPlayer;
 	//Vec3 headpos = game::localPlayer->headpos;
 
-	if (lastHitboxHitPoint.x == 0.f || lastHitboxHitPoint.y == 0.f || lastHitboxHitPoint.z == 0.f)
-		return;
-
-	Vec3 headpos = game::localPlayer->actorPosition;
+	//if (lastHitboxHitPoint.x == 0.f || lastHitboxHitPoint.y == 0.f || lastHitboxHitPoint.z == 0.f)
+		//return;
+	Vec3 headpos = Vec3(0, 0, 0);
+	//Vec3 headpos = game::localPlayer->actorPosition;
 	headpos.y += 0.3f;
 //	game::clickGui->sendNotificationf("%f %f %f   %f %f %f", headpos.x, headpos.y, headpos.z, lastHitboxHitPoint.x, lastHitboxHitPoint.y, lastHitboxHitPoint.z);
-
+	//game::clickGui->sendNotificationf("e %f", game::localPlayer->getPos()->x);
 	lastHitValue = headpos.Distance(lastHitboxHitPoint);
 
 }

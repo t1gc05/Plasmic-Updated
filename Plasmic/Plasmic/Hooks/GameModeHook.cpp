@@ -64,6 +64,7 @@ _GamemodeAttack ogamemodeSurvivalAttack;
 extern ReachDisplay* rdp;
 ComboCounter* combocounter;
 bool HookGamemodeAttack(Gamemode* gm, Actor* actor) {
+	Logger::log("E");
 	if (gm == nullptr)
 		return ogamemodeAttack(gm, actor);
 	if (gm->Player != game::localPlayer)
@@ -79,10 +80,6 @@ bool HookGamemodeAttack(Gamemode* gm, Actor* actor) {
 	return ogamemodeAttack(gm, actor);
 }
 bool HookGamemodeSurvivalAttack(Gamemode* gm, Actor* actor) {
-	if (gm == nullptr)
-		return ogamemodeSurvivalAttack(gm, actor);
-	if (gm->Player != game::localPlayer)
-		return ogamemodeSurvivalAttack(gm, actor);
 
 
 	getvisualmodbyname(rdp, "Reach Display", ReachDisplay)
@@ -176,18 +173,16 @@ void SurvivalModeTickHookf(Gamemode* gm) {
 
 
 void GamemodeTickHook::init() {
-	name = "GamemodeTickHook";
+	uintptr_t addr = mem::FindSignature("48 8D 05 ? ? ? ? 48 89 01 48 89 51 ? 48 C7 41 ? FF FF FF FF C7 41 ? FF FF FF FF");
+	int offset = *reinterpret_cast<int*>(addr + 3);
+	uintptr_t** gmvtable = reinterpret_cast<uintptr_t**>(addr + offset + 7);
 
-	uintptr_t hookAddress = mem::FindSignature("8B 41 20 89 41 1C C3");
-	if (hookAddress == NULL) {
-		Logf("Unable to hook!\n Sig of %s is broken", name);
-		return;
+	if (addr == NULL) {
+		Logger::logf("oh no gm sig broke");
 	}
-	Logf("%s: %p", name, (void*)hookAddress);
 
-	isInit = true;
-
-	MH_CreateHook((LPVOID)hookAddress, (LPVOID)GamemodeTickHookf, (LPVOID*)&ogamemodeTick);
+	MH_CreateHook((LPVOID)gmvtable[14], (LPVOID)HookGamemodeAttack, (LPVOID*)&ogamemodeAttack);
+	MH_EnableHook((LPVOID)gmvtable[14]);
 }
 
 
