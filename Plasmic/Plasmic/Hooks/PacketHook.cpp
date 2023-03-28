@@ -56,8 +56,8 @@ void HookSendToServer(LoopbackPacketSender* packetsender, Packet* packet) {
 		TextPacketVtable = mem::getVtable(packet);
 		TextPacket* tp = (TextPacket*)packet;
 
-		if (tp->message.getText()[0] == '.') {
-			CommandManager::onCommand(tp->message.getText() + 1);
+		if (tp->messagereal.getText()[0] == '.') {
+			CommandManager::onCommand(tp->messagereal.getText() + 1);
 			return;
 		}
 	 
@@ -94,8 +94,9 @@ void SendToServerHook::init() {
 
 	isInit = true; SendToServerInit = true;
 	if (game::clientinstance != nullptr){
+		hookAddress = mem::FindSignature("48 89 5C 24 ? 57 48 83 EC 20 48 8B D9 48 8B FA 48 8B 49 10 E8 ? ? ? ?");
 		//hookAddress = (uintptr_t)(mem::getVtable(game::clientinstance->loopbackPacketSender)[2]);
-		//MH_CreateHook((LPVOID)hookAddress, (LPVOID)HookSendToServer, (LPVOID*)&osendPacket);
+		MH_CreateHook((LPVOID)hookAddress, (LPVOID)HookSendToServer, (LPVOID*)&osendPacket);
 	}
 
 #ifndef _1_16_40

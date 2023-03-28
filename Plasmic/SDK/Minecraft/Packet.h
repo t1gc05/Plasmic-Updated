@@ -1,7 +1,7 @@
 #pragma once
 #include "MCUtilsClass.h"
 #include "../../Utils/PlasmicMath.h"
-
+#include "../../Utils\mem.h"
 struct NetworkIdentifier {};
 
 class Packet {
@@ -21,6 +21,8 @@ extern uintptr_t** CommandRequestVtable;
 
 
 class TextPacket : public Packet {
+	//all not updated besides the "messagereal" one
+public:
 	char pad_0000[32]; //0x0000
 public:
 	uint8_t messageType; //0x0028
@@ -50,7 +52,7 @@ public:
 
 		 memcpy(&message, &TheMessage, sizeof(Text));
 	 }
-
+	 BUILD_ACCESS(Text, messagereal, 0x58);
 }; //Size: 0x00E8
 
 
