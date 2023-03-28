@@ -2,6 +2,8 @@
 #include "MCUtilsClass.h"
 #include <cstdint>
 #include "../../Utils/PlasmicMath.h"
+#include "../../Utils/mem.h"
+
 
 
 
@@ -15,8 +17,7 @@ public:
 	float guiScale; //0x0050
 	char pad_0054[20]; //0x0054
 public:
-	uint16_t mouseX; //0x0068
-	uint16_t mouseY; //0x0069
+	uint16_t somemouseshit; //0x0068
 private:
 	char pad_006A[4117]; //0x006A
 	char pad_0056[66]; //0x0056
@@ -178,15 +179,17 @@ private:
 #ifndef  _1_16_40
 
 
+// Created with ReClass.NET 1.2 by KN4CK3R
+
+
 
 class ClientInstance {
-	public:
-		uintptr_t** VTable; //0x0000
-		char pad_0008[1288]; //0x0008
-		class GuiData* guiData; //0x0510
-		char pad_0518[2856]; //0x0518
-		//anything under this hasnt been updated to the latest (besides getLocalPlayer) :)
 public:
+	uintptr_t** VTable; //0x0000
+	BUILD_ACCESS(GuiData*, guiData, 0x510);
+	BUILD_ACCESS(Vec2, mousepos, 0x468);
+public:
+	//anything under here hasnt been updated
 	char pad_0000[152]; //0x0000
 public:
 	class MinecraftGame* minecraftGame; //0x0098

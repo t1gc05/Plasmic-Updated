@@ -14,8 +14,8 @@ bool ctrlPushed = false;
 
 void onKeyHook(uint16_t key, bool isDown) {
 	bool Cancel = false;
-	
-
+	bool fake = false;
+	oonKey(key, isDown);
 	if (key == VK_CONTROL)
 		ctrlPushed = isDown;
 	//if (key == VK_MENU)
@@ -37,7 +37,7 @@ void onKeyHook(uint16_t key, bool isDown) {
 			if ((game::clickGui->key == key || key == VK_INSERT) && game::clickGui->isEnabled() == false && game::localPlayer != nullptr)
 				game::clickGui->Enable();
 			else if (game::clickGui->isEnabled())
-				game::clickGui->onKey(key, isDown, Cancel);
+				game::clickGui->onKey(key, isDown,fake);
 
 	
 	//Module activation
@@ -59,16 +59,14 @@ void onKeyHook(uint16_t key, bool isDown) {
 	for (uint16_t i = 0; moduleList.size() > i; i++) {
 		if (moduleList[i] != nullptr)
 			if (moduleList[i]->isEnabled())
-				moduleList[i]->onKey(key, isDown, Cancel);
+				moduleList[i]->onKey(key, isDown, fake);
 	}
 	for (uint16_t i = 0; visualModuleList.size() > i; i++) {
 		if (visualModuleList[i] != nullptr)
 			if (visualModuleList[i]->isEnabled())
-				visualModuleList[i]->onKey(key, isDown, Cancel);
+				visualModuleList[i]->onKey(key, isDown, fake);
 	}
 
-	if (!Cancel)
-		return oonKey(key, isDown);
 }
 
 void KeyboardHook::init() {

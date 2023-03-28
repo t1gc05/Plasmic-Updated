@@ -293,7 +293,7 @@ void ClickGui::onKey(uint16_t key, bool isDown, bool& cancel) {
 	}
 
 
-	cancel = true;
+	//cancel = true;
 }
 
 
@@ -355,8 +355,8 @@ void ClickGui::onRender() {
 	//preparation
 	Logger::logf("hello world");
 	GuiData* g = game::clientinstance->guiData;
-	mx = (g->windowSizeScaled.x * g->mouseX) / g->windowSizeReal.x;
-	my = (g->windowSizeScaled.y * g->mouseY) / g->windowSizeReal.y;
+	mx = (g->windowSizeScaled.x * game::clientinstance->mousepos.x) / g->windowSizeReal.x;
+	my = (g->windowSizeScaled.y * game::clientinstance->mousepos.y) / g->windowSizeReal.y;
 	wx = g->windowSizeScaled.x;
 	wy = g->windowSizeScaled.y;
 

@@ -278,7 +278,7 @@ public:
 	virtual Vec3* getPosOld() { return NULL; }
 	virtual void getPosExtrapolated() {}
 	virtual void getAttachPos() {}
-	virtual Vec3 getFiringPos() {}
+//	virtual Vec3 getFiringPos() {}
 	virtual void setRot(Vec2 look) {}
 	virtual void Function20() {}
 	virtual void move() {}
